@@ -1,0 +1,12 @@
+@use '../styles/utils/index.scss' as *;
+
+.container {
+  background: $gray-light;
+  margin: calc($app-banner-height + rem(128)) auto 0;
+  max-width: rem(375);
+  padding: rem(16);
+
+  @include sm-down {
+    margin: calc($app-banner-height) auto 0;
+  }
+}

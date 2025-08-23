@@ -1,0 +1,60 @@
+@use "../../styles/utils/index.scss" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.title-input {
+  max-width: 20rem;
+}
+
+.questions {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-height: 60vh;
+  overflow: auto;
+}
+
+.question-row {
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+  @include sm-down {
+    flex-direction: column;
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.drag-handle {
+  cursor: grab;
+
+  svg {
+    color: #888;
+  }
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.input {
+
+  flex:1;
+}

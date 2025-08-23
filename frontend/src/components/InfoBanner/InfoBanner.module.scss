@@ -1,0 +1,33 @@
+@use '../../styles/utils/index.scss' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  gap: rem(4);
+  background-color: $secondary;
+  padding: rem(16);
+  border-radius: rem(8);
+
+  p {
+    font-weight: $font-medium;
+    font-size: $font-size-l;
+    color: $text-color;
+  }
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: rem(8);
+
+  p {
+    font-weight: $font-bold;
+    font-size: $font-size-l;
+  }
+}
+
+.bodyContainer {
+  padding-left: rem(32);
+}

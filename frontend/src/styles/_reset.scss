@@ -1,0 +1,93 @@
+@use 'utils/functions' as *;
+@import-normalize;
+
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  letter-spacing: rem(0.01);
+}
+
+body {
+  margin: 0;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Headers */
+h1 {
+  font-size: rem(40);
+  line-height: rem(50);
+}
+
+h2 {
+  font-size: rem(28);
+  line-height: rem(32);
+}
+
+h3 {
+  font-size: rem(20);
+  line-height: rem(24);
+}
+
+h4 {
+  font-size: rem(14);
+  line-height: rem(18);
+}
+
+p {
+  font-size: rem(16);
+  line-height: rem(20);
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+input[aria-hidden='true'],
+textarea[aria-hidden='true'] {
+  padding: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}

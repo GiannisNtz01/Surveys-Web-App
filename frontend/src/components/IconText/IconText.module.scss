@@ -1,0 +1,61 @@
+@use '../../styles/utils' as *;
+
+.container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.gap-xs {
+  column-gap: rem(4);
+}
+
+.gap-s {
+  column-gap: rem(8);
+}
+
+.gap-m {
+  column-gap: rem(12);
+}
+
+.gap-l {
+  column-gap: rem(16);
+}
+
+.icon-default {
+  flex: 0 0 rem(24);
+  min-height: rem(24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-regular {
+  flex: 1 1;
+  white-space: break-spaces;
+  @include text($text-color $font-size-m, $line-height-m);
+}
+
+.text-bold {
+  flex: 1 1;
+  white-space: break-spaces;
+  @include text($text-color, $font-size-m, $line-height-m, $font-bold);
+}
+
+.text-ellipsis {
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @include text($text-color, $font-size-m, $line-height-m);
+}
+
+.text-bold-ellipsis {
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @include text($text-color, $font-size-m, $line-height-m, $font-bold);
+}

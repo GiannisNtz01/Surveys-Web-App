@@ -1,0 +1,28 @@
+@use "../../styles/utils" as *;
+
+.logo-desktop {
+  display: flex;
+  margin-right: 2rem;
+
+  @include md-down {
+    display: none;
+  }
+}
+
+.logo-md {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  margin-right: -2rem;
+  @include md-up {
+    display: none;
+  }
+}
+
+.logout-icon {
+  color: $white !important;
+}
+
+.logout-icon:hover {
+  color: $primary !important;
+}

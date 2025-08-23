@@ -1,0 +1,14 @@
+@use "../../styles/utils/index.scss" as *;
+
+.cards-container {
+  gap: 1rem;
+  @include sm-up {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+  @include sm-down {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

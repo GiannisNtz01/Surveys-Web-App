@@ -1,0 +1,38 @@
+@use '../../styles/utils/index.scss' as *;
+
+.container-xxs {
+  margin-bottom: rem(8);
+}
+
+.container-xs {
+  margin-bottom: rem(16);
+}
+
+.container-s {
+  margin-bottom: rem(24);
+}
+
+.container-m {
+  margin-bottom: rem(32);
+}
+
+@mixin widget {
+  background: $secondary;
+  color: $white;
+  border-radius: rem(16);
+  position: relative;
+}
+
+.widget {
+  @include widget;
+}
+
+.widget-xs {
+  @include widget;
+  padding: rem(8);
+}
+
+.widget-s {
+  @include widget;
+  padding: rem(16);
+}

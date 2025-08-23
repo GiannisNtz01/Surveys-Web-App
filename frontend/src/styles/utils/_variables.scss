@@ -1,0 +1,92 @@
+@use 'functions' as *;
+
+$light-red: #ffeae7;
+$red: #ab1633;
+$tag-blue: #c8e2f4;
+$tag-yellow: #fff0c2;
+
+$background-gray: #f8f8f6;
+$background-white: #dee7ee;
+$background-red: #9b17171a;
+$background--lightGray: #f0f3f5;
+
+$primary: #00499f;
+$secondary: #c8e1ff;
+$text-color: #071929;
+$primary-dark: #071929;
+//Grey Scale
+$black: #000000;
+$gray-dark: #505a62;
+$gray-medium-dark: #75898e;
+$gray-medium: #c0c9cc;
+$gray-light: #f9f9f9;
+$gray: #f0f3f5;
+$white: #ffffff;
+
+/* Useful sizes */
+$gutter: rem(16);
+$border-radius: rem(8);
+$border-radius-big: rem(28);
+$content-max-width: rem(512);
+$side-bar-width: rem(112);
+$app-banner-height: rem(80);
+$max-width: rem(1200);
+$header-height: rem(84);
+
+//Status
+$success: #0c6453;
+$error: #e51c00;
+$disabled: #58728c;
+$disabled-button: rgba(54, 73, 93, 0.6);
+
+//highlight
+$highlight: #eceff5;
+$highlight-light: #fbfcfd;
+
+//Overlay
+$overlay: rgba(48, 48, 48, 0.7);
+
+// Categories - Gradients - Shadows
+$card-shadow: 0px 7px 20px 0px rgba(63, 95, 127, 0.08);
+
+$box-shadow-1: 0px 4px 23px rgba(63, 95, 127, 0.12);
+$box-shadow-2: 0px 0px 21px 1px #dee7ee;
+$box-shadow-3: 0px 10px 30px rgba(63, 95, 127, 0.1);
+$box-shadow-4: 0px 7px 30px 3px rgba(63, 95, 127, 0.05);
+
+/* Typography */
+$font-size-s: rem(12);
+$font-size-m: rem(14);
+$font-size-l: rem(16);
+$font-size-xl: rem(18);
+$font-size-xxl: rem(20);
+$font-size-3xl: rem(24);
+$font-size-4xl: rem(32);
+$font-size-5xl: rem(40);
+$font-size-6xl: rem(48);
+
+$line-height-s: rem(14);
+$line-height-m: rem(16);
+$line-height-l: rem(18);
+$line-height-xl: rem(20);
+$line-height-xxl: rem(22);
+$line-height-3xl: rem(26);
+$line-height-4xl: rem(34);
+$line-height-5xl: rem(42);
+$line-height-6xl: rem(50);
+
+$font-regular: 300;
+$font-medium: 400;
+$font-bold: 700;
+
+/* media query variables */
+$xs: 0px;
+$sm: 600px;
+$md: 960px;
+$lg: 1200px;
+$xl: 1920px;
+
+/* z-index */
+$app-banner-z-index: 100;
+$nav-bar-z-index: 62;
+$side-bar-z-index: 61;

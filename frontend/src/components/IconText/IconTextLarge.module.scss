@@ -1,0 +1,14 @@
+@use '../../styles/utils' as *;
+
+.icon {
+  margin: 0 0 rem(24);
+}
+
+.message {
+  margin: 0 0 rem(2);
+}
+
+.header {
+  font-weight: $font-bold;
+  margin: 0 0 rem(8);
+}

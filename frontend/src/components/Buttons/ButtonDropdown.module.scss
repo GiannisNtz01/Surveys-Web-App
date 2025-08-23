@@ -1,0 +1,39 @@
+@use '../../styles/utils' as *;
+
+.container {
+  display: block;
+  position: relative;
+}
+
+.button {
+  padding: rem(24) rem(16);
+  background-color: $secondary;
+  @include text($white, $font-size-m, $line-height-m);
+  width: 100%;
+  border-radius: rem(16);
+  display: flex;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: $secondary;
+  }
+}
+
+.popper {
+  width: 100%;
+  padding: rem(4) 0 rem(24);
+  z-index: 100;
+}
+
+.menu {
+  margin-top: rem(8);
+  border-radius: rem(16);
+  max-height: rem(156);
+  overflow: hidden auto;
+}
+
+.menu-item {
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+}

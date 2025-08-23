@@ -1,0 +1,33 @@
+@use '../../../styles/utils/index.scss' as *;
+
+.container{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.errorBox {
+  margin-bottom: rem(24);
+  color: $red;
+  white-space: pre-line;
+  border-radius: $border-radius;
+
+  & > button {
+    display: none;
+  }
+  & > * {
+    padding: 0;
+  }
+}
+
+.hideIcon {
+  display: none;
+}
+
+.input {
+  margin-bottom: rem(24);
+}
+
+.submit {
+  width: 100%;
+}

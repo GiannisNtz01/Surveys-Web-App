@@ -1,0 +1,10 @@
+@use '../../styles/utils' as *;
+
+.label {
+  line-height: $line-height-m;
+  margin-left: 0.5rem;
+}
+
+.noLabel {
+  margin: 0 -0.75rem 0 0;
+}

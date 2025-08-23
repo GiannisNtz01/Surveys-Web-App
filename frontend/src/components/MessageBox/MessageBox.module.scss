@@ -1,0 +1,57 @@
+@use '../../styles/utils' as *;
+
+.container {
+  background-color: $light-red;
+  padding: rem(16);
+  margin: 0;
+  border-radius: rem(4);
+  position: relative;
+  width: 100%;
+
+  &.container-top-xs {
+    margin-top: rem(8);
+  }
+  &.container-top-s {
+    margin-top: rem(16);
+  }
+  &.container-top-m {
+    margin-top: rem(24);
+  }
+
+  &.container-bottom-xs {
+    margin-bottom: rem(8);
+  }
+  &.container-bottom-s {
+    margin-bottom: rem(16);
+  }
+  &.container-bottom-m {
+    margin-bottom: rem(24);
+  }
+}
+
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  gap: rem(8);
+  align-items: center;
+}
+
+.bottomSection {
+  padding: rem(8) rem(32) 0;
+  @include text($text-color, $font-size-m, $line-height-m, $font-regular);
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.header {
+  flex: 1;
+  margin: 0;
+  @include text($text-color, $font-size-m, $line-height-m, $font-bold);
+}
+
+.icon,
+.cancelIcon {
+  flex: 0 0 rem(24);
+}

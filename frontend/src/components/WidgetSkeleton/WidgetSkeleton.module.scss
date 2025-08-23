@@ -1,0 +1,12 @@
+@use '../../styles/utils/index.scss' as *;
+
+.widget {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.darkLoader {
+  background: $secondary;
+}

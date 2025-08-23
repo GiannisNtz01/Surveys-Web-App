@@ -1,0 +1,14 @@
+@use '../../styles/utils/index.scss' as *;
+
+.icon {
+  width: rem(24);
+  height: rem(24);
+}
+
+.default > div {
+  background: $secondary !important;
+}
+
+.error > div {
+  background: $light-red !important;
+}

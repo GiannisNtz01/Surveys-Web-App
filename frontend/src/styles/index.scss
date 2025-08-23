@@ -1,0 +1,17 @@
+@use 'reset.scss' as *;
+@use 'utils/index' as *;
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: $text-color;
+}
+
+body {
+  background-color: $gray-light !important;
+}

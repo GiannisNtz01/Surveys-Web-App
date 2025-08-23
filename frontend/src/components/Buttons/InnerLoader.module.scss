@@ -1,0 +1,17 @@
+@use "../../styles/utils" as *;
+
+.wrapper {
+  position: relative;
+  width: max-content;
+}
+
+.iconWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.progress {
+  color: $white;
+}
