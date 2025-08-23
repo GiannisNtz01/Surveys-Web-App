@@ -60,9 +60,9 @@ Before running the application, make sure you have the following installed:
 
 3. Create a database
 
-    psql -U postgres
-    CREATE USER postgres WITH PASSWORD '1234'
-    CREATE DATABASE survey_db OWNER postgres;
+    - psql -U postgres
+    - CREATE USER postgres WITH PASSWORD '1234'
+    - CREATE DATABASE survey_db OWNER postgres;
 
 ---
 
