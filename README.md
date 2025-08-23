@@ -20,6 +20,16 @@ A web application for creating, managing, and responding to surveys. Admins can 
 
 ---
 
+### 👥 Users
+
+| Username | Password   |
+|----------|------------|
+| admin    | adminpass  |
+| user     | userpass   |
+
+
+---
+
 ## 📋 Prerequisites
 
 Before running the application, make sure you have the following installed:
@@ -51,7 +61,10 @@ Before running the application, make sure you have the following installed:
 3. Create a database
 
     psql -U postgres
-    CREATE DATABASE surveys_db;
+    CREATE USER postgres WITH PASSWORD '1234'
+    CREATE DATABASE survey_db OWNER postgres;
+
+---
 
 ## 🚀 Running the Backend (Spring Boot) in VS Code
 
@@ -61,6 +74,18 @@ Before running the application, make sure you have the following installed:
    - Click the **Run** button in VS Code
 4. **Verify Backend**
    - The backend should run on [http://localhost:8080](http://localhost:8080)
+
+---
+  
+
+## 🕸️ Running the Fronend (Vite+React)
+1. **Open the project in VS Code**
+2. **Open a terminal session**
+3. `yarn install`
+4. `yarn start`
+  - The front should run on [http://localhost:3000](http://localhost:3000)
+
+---
 
 ## 🔗 API Endpoints
 
@@ -93,6 +118,50 @@ Before running the application, make sure you have the following installed:
 - `GET /api/role` – Get the username and role of the currently logged-in user
 
 ## 🖼️ Screenshots
+
+### Login page
+
+<img width="1219" height="739" alt="image" src="https://github.com/user-attachments/assets/d2ff591a-2df2-4b81-9f39-26e2c80f5967" />
+
+### Admin dashboard
+
+<img width="1209" height="889" alt="image" src="https://github.com/user-attachments/assets/82e15674-bcbc-44d5-a972-038a44a8201f" />
+
+### Admin create survey
+
+<img width="1203" height="932" alt="image" src="https://github.com/user-attachments/assets/748aa25d-b3e6-4add-aff1-ef591c66b9bc" />
+
+### Admin completed survey
+
+<img width="1199" height="516" alt="image" src="https://github.com/user-attachments/assets/b51b8cca-2e5b-4795-86a0-fd47515034a5" />
+
+### Admin new/pending survey
+
+<img width="1203" height="752" alt="image" src="https://github.com/user-attachments/assets/9586f7d4-d2c6-46bc-8725-697323050bf4" />
+
+
+### User dashboard
+
+<img width="1202" height="723" alt="image" src="https://github.com/user-attachments/assets/6cddb25c-b2b1-457d-ba59-c4496abdd7e2" />
+
+
+### User answered survey
+
+<img width="1209" height="592" alt="image" src="https://github.com/user-attachments/assets/284f9d44-9512-4a52-9cdc-ba6070189a4e" />
+
+
+### User survey submission
+
+<img width="1207" height="838" alt="image" src="https://github.com/user-attachments/assets/727c61ba-3138-4a5e-b449-bba74dd218ee" />
+
+<img width="1161" height="618" alt="image" src="https://github.com/user-attachments/assets/b1ec7efb-917b-45ac-957f-eafdb95a6aa4" />
+
+
+
+
+
+
+
 
 
 ---
