@@ -26,6 +26,10 @@ A web application for creating, managing, and responding to surveys. Admins can 
 |----------|------------|
 | admin    | adminpass  |
 | user     | userpass   |
+| john     | johnpass   |
+| mike     | mikepass   |
+| oliver   | oliverpass |
+| nick     | nickpass   |
 
 
 ---
