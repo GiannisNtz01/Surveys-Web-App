@@ -93,7 +93,6 @@ Before running the application, make sure you have the following installed:
 ## 🔗 API Endpoints
 
 ### Authentication
-- `POST /api/register` – User registration
 - `POST /api/login` – User login
 
 ---
