@@ -63,7 +63,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
+     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
         // Define in-memory users
         UserDetails admin = User.builder()
@@ -72,15 +72,29 @@ public class SecurityConfig {
                 .roles("ADMIN")
                 .build();
 
-        UserDetails user = User.builder()
-                .username("user")
-                .password(passwordEncoder.encode("userpass"))
+        UserDetails john = User.builder()
+                .username("john")
+                .password(passwordEncoder.encode("johnpass"))
+                .roles("USER")
+                .build();
+        UserDetails mike = User.builder()
+                .username("mike")
+                .password(passwordEncoder.encode("mikepass"))
+                .roles("USER")
+                .build();
+        UserDetails oliver = User.builder()
+                .username("oliver")
+                .password(passwordEncoder.encode("oliverpass"))
+                .roles("USER")
+                .build();
+        UserDetails nick = User.builder()
+                .username("nick")
+                .password(passwordEncoder.encode("nickpass"))
                 .roles("USER")
                 .build();
 
-        return new InMemoryUserDetailsManager(admin, user);
+        return new InMemoryUserDetailsManager(admin, john, mike, oliver, nick);
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
