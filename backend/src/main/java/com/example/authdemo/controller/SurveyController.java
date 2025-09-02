@@ -279,6 +279,13 @@ public class SurveyController {
         }
 
         Survey survey = surveyOptional.get();
+
+        String usersAnswered = survey.getUsersAnswered();
+        List<String> answeredUsersList = new ArrayList<>();
+        if (usersAnswered != null && !usersAnswered.isEmpty()) {
+            answeredUsersList = Arrays.asList(usersAnswered.split(","));
+        }
+
         List<List<Survey.SurveyField>> content = survey.getSurveyContent();
 
         if (content == null || content.isEmpty()) {
@@ -336,6 +343,15 @@ public class SurveyController {
         SurveyStatsResponse response = new SurveyStatsResponse(totalScore, totalQuestions, fieldStats);
         return ResponseEntity.ok(response);
     }
+
+    private List<String> getAnsweredUsers(Survey survey) {
+        String usersAnswered = survey.getUsersAnswered();
+        if (usersAnswered == null || usersAnswered.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return Arrays.asList(usersAnswered.split(","));
+    }
+
 
     @GetMapping("/admin/surveys/{id}/export")
     public ResponseEntity<Resource> exportSurveyStatsAsCsv(@PathVariable Long id) {
@@ -419,7 +435,7 @@ public class SurveyController {
         csvBuilder.append("FINAL_SCORE,")
                 .append("\"Final SUS Score\"")
                 .append(",")
-                .append(String.format("%.4f", totalScore))
+                .append(String.format("%.2f", totalScore))
                 .append(",")
                 .append("-")
                 .append(",")
@@ -465,6 +481,17 @@ public class SurveyController {
      * @return ResponseEntity containing the updated Survey object or a 404 Not
      *         Found.
      */
+    /**
+     * User endpoint: Allows a user to answer a survey.
+     * This updates the survey content by appending new values and increments the
+     * timesAnswered counter.
+     * Accessible only by USER role.
+     *
+     * @param id          The ID of the survey to answer.
+     * @param userAnswers The request body containing the user's answers.
+     * @return ResponseEntity containing the updated Survey object or a 404 Not
+     *         Found.
+     */
     @PostMapping("/user/surveys/{id}/answer")
     public ResponseEntity<Survey> submitSurveyAnswer(@PathVariable Long id, @RequestBody UserSurveyAnswer userAnswers) {
 
@@ -479,12 +506,22 @@ public class SurveyController {
 
             String currentUsers = survey.getUsersAnswered();
 
-            if (currentUsers == null || currentUsers.isEmpty()) {
-                survey.setUsersAnswered(username);
-            } else {
-                survey.setUsersAnswered(currentUsers + "," + username);
+            // Check if user has already answered this survey
+            if (currentUsers != null && !currentUsers.isEmpty()) {
+                List<String> answeredUsers = Arrays.asList(currentUsers.split(","));
+                if (answeredUsers.contains(username)) {
+                    logger.warn("User {} has already answered survey {}", username, id);
+                    return new ResponseEntity<>(HttpStatus.CONFLICT); // 409 Conflict
+                }
             }
 
+            // Check if survey is still active (NEW status)
+            if (survey.getStatus() != SurveyStatus.NEW) {
+                logger.warn("User {} tried to answer completed survey {}", username, id);
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST); // 400 Bad Request
+            }
+
+            // Process the user's answers
             for (List<SurveyField> userRow : userAnswers.getUserAnswers()) {
                 for (SurveyField userField : userRow) {
                     for (List<SurveyField> existingRow : existingContent) {
@@ -501,10 +538,18 @@ public class SurveyController {
                 }
             }
 
+            // Update users answered list
+            if (currentUsers == null || currentUsers.isEmpty()) {
+                survey.setUsersAnswered(username);
+            } else {
+                survey.setUsersAnswered(currentUsers + "," + username);
+            }
+
             survey.setTimesAnswered(survey.getTimesAnswered() + 1);
 
             try {
                 Survey updatedSurvey = surveyRepository.save(survey);
+                logger.info("User {} successfully answered survey {}", username, id);
                 return ResponseEntity.ok(updatedSurvey);
             } catch (Exception e) {
                 logger.error("Error saving survey with ID {}: {}", id, e.getMessage());
@@ -517,7 +562,7 @@ public class SurveyController {
     }
 
     @GetMapping("/user/surveys/{id}/can-answer")
-    public ResponseEntity<Boolean> canUserAnswer(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> canUserAnswer(@PathVariable Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
@@ -526,13 +571,27 @@ public class SurveyController {
             Survey survey = surveyOptional.get();
             String usersAnswered = survey.getUsersAnswered();
 
-            boolean canAnswer = (usersAnswered == null || !usersAnswered.contains(username));
-            return ResponseEntity.ok(canAnswer);
+            boolean hasAnswered = false;
+            boolean isSurveyActive = survey.getStatus() == SurveyStatus.NEW;
+
+            if (usersAnswered != null && !usersAnswered.isEmpty()) {
+                List<String> answeredUsers = Arrays.asList(usersAnswered.split(","));
+                hasAnswered = answeredUsers.contains(username);
+            }
+
+            boolean canAnswer = isSurveyActive && !hasAnswered;
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("canAnswer", canAnswer);
+            response.put("hasAnswered", hasAnswered);
+            response.put("isSurveyActive", isSurveyActive);
+            response.put("username", username);
+
+            return ResponseEntity.ok(response);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
     /*
      * Endpoint to get the role of the currently logged-in user.
      * Accessible to any authenticated user.*
