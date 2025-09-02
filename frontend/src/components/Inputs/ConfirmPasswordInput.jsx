@@ -1,29 +1,25 @@
+import { useState } from "react";
+import { isEmptyString } from "utils/stringUtils";
 
-import { useTranslation } from 'react-i18next';
-import { isEmptyString } from 'utils/stringUtils';
+import get from "lodash/get";
 
-import get from 'lodash/get';
-
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import { StandardInput } from './Inputs';
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import { StandardInput } from "./Inputs";
 
 const ConfirmPasswordInput = ({
   register,
   errors,
-  name = 'confirmPassword',
+  name = "confirmPassword",
   comparedInputName,
   label,
   watch,
   required = true,
   ...rest
 }) => {
-  const { t } = useTranslation(['inputs']);
-  const baseName = 'inputs:errors';
-
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -40,7 +36,7 @@ const ConfirmPasswordInput = ({
         if (!required && isEmptyString(value)) return true;
         return (
           value === watch(comparedInputName) ||
-          t(`${baseName}.confirm-password`)
+          "Password should be the same on both fields."
         );
       },
     }) || {};
@@ -49,7 +45,7 @@ const ConfirmPasswordInput = ({
       <StandardInput
         inputRef={ref}
         label={label}
-        type={showPassword ? 'text' : 'password'}
+        type={showPassword ? "text" : "password"}
         errorMessage={get(errors, `${name}.message`, null)}
         error={get(errors, `${name}`, null) !== null}
         endAdornment={

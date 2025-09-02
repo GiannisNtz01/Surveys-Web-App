@@ -13,7 +13,12 @@ const logout = () => {
   });
 };
 
-// const getUser = async () => {
-// };
+const accountRegister = ({ username, password }) => {
+  return postFetcher(endpoints.register, {
+    username,
+    password,
+    role: "USER",
+  });
+};
 
-export { login, logout };
+export { login, logout, accountRegister };

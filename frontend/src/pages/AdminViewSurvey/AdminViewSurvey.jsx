@@ -87,6 +87,15 @@ const AdminViewSurvey = () => {
     }
   };
 
+  const getSUSUsability = (score) => {
+    if (score < 50) return { label: "Poor usability", color: "error" };
+    if (score < 68) return { label: "Marginal usability", color: "warning" };
+    if (score < 80) return { label: "Good usability", color: "info" };
+    return { label: "Excellent usability", color: "success" };
+  };
+
+  const { label, color } = getSUSUsability(totalScore);
+
   const lastQuestion = surveyContent?.[surveyContent?.length - 1]?.[0];
 
   return (
@@ -105,11 +114,13 @@ const AdminViewSurvey = () => {
           </div>
         )}
         <div className={styles["info-container"]}>
-          <Alert severity="info" sx={{ width: "max-content" }}>
+          <Alert severity="info" sx={{ minWidth: "50%", width: "max-content" }}>
             Survey takers: {timesAnswered}
-            {totalScore && (
+            {!!totalScore && (
               <>
-                <br /> Total score: {Math.ceil(totalScore)}
+                <br /> Total score: {Number(totalScore).toFixed(2)}
+                <br />
+                <Chip label={label} color={color} size="small" sx={{ mt: 1 }} />
               </>
             )}
           </Alert>
