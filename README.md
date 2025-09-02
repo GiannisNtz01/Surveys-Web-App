@@ -119,7 +119,11 @@ Before running the application, make sure you have the following installed:
 
 ### Login page
 
-<img width="1219" height="739" alt="image" src="https://github.com/user-attachments/assets/d2ff591a-2df2-4b81-9f39-26e2c80f5967" />
+<img width="1199" height="743" alt="image" src="https://github.com/user-attachments/assets/0f9a7f4d-a684-4492-a2a6-0e374d184888" />
+
+### Register page
+
+<img width="1200" height="750" alt="image" src="https://github.com/user-attachments/assets/c293bbd6-b565-48c8-a006-3450ed01d0a9" />
 
 ### Admin dashboard
 
@@ -131,22 +135,19 @@ Before running the application, make sure you have the following installed:
 
 ### Admin completed survey
 
-<img width="1199" height="516" alt="image" src="https://github.com/user-attachments/assets/b51b8cca-2e5b-4795-86a0-fd47515034a5" />
+<img width="1198" height="683" alt="image" src="https://github.com/user-attachments/assets/7bc08dbf-87ad-4a6e-95c5-dd8c7bce9481" />
 
 ### Admin new/pending survey
 
 <img width="1203" height="752" alt="image" src="https://github.com/user-attachments/assets/9586f7d4-d2c6-46bc-8725-697323050bf4" />
 
-
 ### User dashboard
 
 <img width="1202" height="723" alt="image" src="https://github.com/user-attachments/assets/6cddb25c-b2b1-457d-ba59-c4496abdd7e2" />
 
-
 ### User answered survey
 
 <img width="1209" height="592" alt="image" src="https://github.com/user-attachments/assets/284f9d44-9512-4a52-9cdc-ba6070189a4e" />
-
 
 ### User survey submission
 
