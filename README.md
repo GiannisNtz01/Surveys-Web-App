@@ -20,15 +20,11 @@ A web application for creating, managing, and responding to surveys. Admins can 
 
 ---
 
-### 👥 Users
+### 👥 Users (predefined admin user)
 
 | Username | Password   |
 |----------|------------|
 | admin    | adminpass  |
-| john     | johnpass   |
-| mike     | mikepass   |
-| oliver   | oliverpass |
-| nick     | nickpass   |
 
 
 ---
