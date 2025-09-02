@@ -1,5 +1,6 @@
 const endpoints = {
   login: "/login",
+  register: "/register",
   logout: "/logout",
   createSurvey: "/admin/surveys",
   getAdminSurveys: "/admin/surveys",

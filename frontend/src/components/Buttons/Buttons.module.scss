@@ -1,4 +1,4 @@
-@use '../../styles/utils' as *;
+@use "../../styles/utils" as *;
 
 .semitransparent {
   background-color: $primary;
@@ -31,5 +31,5 @@
   outline: inherit;
   text-decoration: underline;
   width: auto;
-  @include text($white, $font-size-m, $line-height-m, $font-regular);
+  @include text($text-color, $font-size-m, $line-height-m, $font-bold);
 }
