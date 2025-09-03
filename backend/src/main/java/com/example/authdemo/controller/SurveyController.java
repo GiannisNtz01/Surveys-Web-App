@@ -352,7 +352,6 @@ public class SurveyController {
         return Arrays.asList(usersAnswered.split(","));
     }
 
-
     @GetMapping("/admin/surveys/{id}/export")
     public ResponseEntity<Resource> exportSurveyStatsAsCsv(@PathVariable Long id) {
         Optional<Survey> surveyOptional = surveyRepository.findById(id);
@@ -404,7 +403,7 @@ public class SurveyController {
 
                     csvBuilder.append(field.getFieldId())
                             .append(",")
-                            .append("\"").append(field.getName()).append("\"")
+                            .append("\"").append(field.getName().replace("\"", "\"\"")).append("\"")
                             .append(",")
                             .append(String.format("%.4f", average))
                             .append(",")
@@ -415,7 +414,7 @@ public class SurveyController {
                 } else {
                     csvBuilder.append(field.getFieldId())
                             .append(",")
-                            .append("\"").append(field.getName()).append("\"")
+                            .append("\"").append(field.getName().replace("\"", "\"\"")).append("\"")
                             .append(",")
                             .append("0.0000")
                             .append(",")
@@ -432,7 +431,7 @@ public class SurveyController {
             totalScore = (totalSum / (totalQuestions * 4.0)) * 100.0;
         }
 
-        csvBuilder.append("FINAL_SCORE,")
+        csvBuilder.append("FINAL SCORE,")
                 .append("\"Final SUS Score\"")
                 .append(",")
                 .append(String.format("%.2f", totalScore))
@@ -442,15 +441,38 @@ public class SurveyController {
                 .append("-")
                 .append("\n");
 
+        String usabilityMessage = getSUSUsabilityMessage(totalScore);
+        csvBuilder.append("USABILITY RATING,")
+                .append("\"Usability Assessment\"")
+                .append(",")
+                .append("\"").append(usabilityMessage).append("\"")
+                .append(",")
+                .append("-")
+                .append(",")
+                .append("-")
+                .append("\n");
+
         byte[] csvBytes = csvBuilder.toString().getBytes(StandardCharsets.UTF_8);
         ByteArrayResource resource = new ByteArrayResource(csvBytes);
 
-        String filename = survey.getSurveyTitle().replaceAll("\\s+", "_") + "_sus_score.csv";
+        String filename = survey.getSurveyTitle()
+                .replaceAll("[^a-zA-Z0-9\\s]", "")
+                .replaceAll("\\s+", "_") + "_sus_score.csv";
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
                 .contentType(MediaType.parseMediaType("text/csv"))
                 .body(resource);
+    }
+
+    private String getSUSUsabilityMessage(double score) {
+        if (score < 50)
+            return "Poor usability";
+        if (score < 68)
+            return "Marginal usability";
+        if (score < 80)
+            return "Good usability";
+        return "Excellent usability";
     }
 
     // --- User Endpoints ---
