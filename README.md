@@ -90,6 +90,7 @@ Before running the application, make sure you have the following installed:
 
 ### Authentication
 - `POST /api/login` – User login
+- `POST /api/register` – User register
 
 ---
 
