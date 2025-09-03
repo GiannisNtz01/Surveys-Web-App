@@ -77,7 +77,7 @@ Before running the application, make sure you have the following installed:
 ---
   
 
-## 🕸️ Running the Fronend (Vite+React)
+## 🕸️ Running the Frontend (Vite+React)
 1. **Open the project in VS Code**
 2. **Open a terminal session**
 3. `yarn install`
