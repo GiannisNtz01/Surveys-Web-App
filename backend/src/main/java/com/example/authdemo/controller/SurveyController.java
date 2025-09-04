@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -405,7 +406,7 @@ public class SurveyController {
                             .append(",")
                             .append("\"").append(field.getName().replace("\"", "\"\"")).append("\"")
                             .append(",")
-                            .append(String.format("%.4f", average))
+                            .append(String.format(Locale.US, "%.2f", average))
                             .append(",")
                             .append(min)
                             .append(",")
@@ -416,7 +417,7 @@ public class SurveyController {
                             .append(",")
                             .append("\"").append(field.getName().replace("\"", "\"\"")).append("\"")
                             .append(",")
-                            .append("0.0000")
+                            .append("0")
                             .append(",")
                             .append("0")
                             .append(",")
