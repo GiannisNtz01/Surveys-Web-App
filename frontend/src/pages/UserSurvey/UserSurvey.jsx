@@ -24,7 +24,7 @@ const UserSurvey = () => {
   } = useSurveyData(id);
 
   const {
-    data: canAnswer,
+    data,
     isLoading: isLoadingCanAnswer,
     mutate,
   } = useCanAnswerToSurvey(id);
@@ -59,9 +59,9 @@ const UserSurvey = () => {
             {status && <Chip label={status} color="success" size="small" />}
           </div>
         )}
-        {!canAnswer && (
+        {!data?.canAnswer && (
           <Alert severity="success" sx={{ width: "max-content" }}>
-            <AlertTitle>You have already answered</AlertTitle>
+            <AlertTitle>You have already answered.</AlertTitle>
             Check the questions below.
           </Alert>
         )}
@@ -70,7 +70,7 @@ const UserSurvey = () => {
           questions={surveyContent}
           handleSubmission={handleSubmission}
           lastQuestion={surveyContent?.[surveyContent?.length - 1]?.[0]}
-          userCanAnswer={canAnswer}
+          userCanAnswer={data?.canAnswer}
           mutate={mutate}
         />
       </WidgetSkeleton>

@@ -11,11 +11,16 @@ import Dashboard from "pages/Dashboard/Dashboard";
 import AdminViewSurvey from "pages/AdminViewSurvey/AdminViewSurvey";
 import ProtectedRoleRoute from "utils/ProtectedRoleRoute";
 import { roleTypes } from "types/roleTypes";
+import Register from "pages/Onboarding/Register/Register";
 
 const routes = [
   {
     path: navigationPaths.login,
     element: <UnauthorizedRoute component={<Login />} />,
+  },
+  {
+    path: navigationPaths.register,
+    element: <UnauthorizedRoute component={<Register />} />,
   },
   {
     path: navigationPaths.home,

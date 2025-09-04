@@ -1,13 +1,9 @@
-@use '../../../styles/utils/index.scss' as *;
+@use "../../../styles/utils/index.scss" as *;
 
-.container{
+.container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-}
-
-.hideIcon {
-  display: none;
 }
 
 .input {

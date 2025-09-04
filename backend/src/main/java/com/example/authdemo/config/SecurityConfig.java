@@ -5,10 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,12 +15,23 @@ import org.springframework.security.web.authentication.logout.HttpStatusReturnin
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 
 import java.util.Arrays;
+
+import com.example.authdemo.model.User;
+import com.example.authdemo.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+        @Autowired
+        private UserRepository userRepository;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -30,7 +39,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/login", "/api/logout").permitAll()
+                        .requestMatchers("/api/login", "/api/logout", "/api/register").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/user/**").hasRole("USER")
                         .anyRequest().authenticated())
@@ -63,53 +72,56 @@ public class SecurityConfig {
         return http.build();
     }
 
-     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        // Define in-memory users
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder.encode("adminpass"))
-                .roles("ADMIN")
-                .build();
+        @Bean
+        public UserDetailsService userDetailsService() {
+                return username -> {
+                        User user = userRepository.findByUsername(username)
+                                        .orElseThrow(() -> new UsernameNotFoundException(
+                                                        "User not found: " + username));
+                        return user;
+                };
+        }
 
-        UserDetails john = User.builder()
-                .username("john")
-                .password(passwordEncoder.encode("johnpass"))
-                .roles("USER")
-                .build();
-        UserDetails mike = User.builder()
-                .username("mike")
-                .password(passwordEncoder.encode("mikepass"))
-                .roles("USER")
-                .build();
-        UserDetails oliver = User.builder()
-                .username("oliver")
-                .password(passwordEncoder.encode("oliverpass"))
-                .roles("USER")
-                .build();
-        UserDetails nick = User.builder()
-                .username("nick")
-                .password(passwordEncoder.encode("nickpass"))
-                .roles("USER")
-                .build();
+        @Bean
+        public DaoAuthenticationProvider authenticationProvider() {
+                DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+                authProvider.setUserDetailsService(userDetailsService());
+                authProvider.setPasswordEncoder(passwordEncoder());
+                return authProvider;
+        }
 
-        return new InMemoryUserDetailsManager(admin, john, mike, oliver, nick);
-    }
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+                return config.getAuthenticationManager();
+        }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        // Allow requests from your React frontend origin
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true); // Allow sending cookies (JSESSIONID)
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
+
+        @Bean
+        public CorsConfigurationSource corsConfigurationSource() {
+                CorsConfiguration configuration = new CorsConfiguration();
+                configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+                configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                configuration.setAllowedHeaders(Arrays.asList("*"));
+                configuration.setAllowCredentials(true);
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", configuration);
+                return source;
+        }
+
+        @Bean
+        public CommandLineRunner createAdminUser(PasswordEncoder passwordEncoder) {
+                return args -> {
+                        if (!userRepository.existsByUsername("admin")) {
+                                User admin = new User();
+                                admin.setUsername("admin");
+                                admin.setPassword(passwordEncoder.encode("adminpass"));
+                                admin.setRole("ADMIN");
+                                userRepository.save(admin);
+                        }
+                };
+        }
 }

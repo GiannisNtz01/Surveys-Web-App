@@ -1,9 +1,10 @@
 const navigationPaths = {
-  home: '/',
-  login: '/login',
-  userAnswerSurvey: '/answer-survey',
-  adminViewSurvey: '/view-survey',
-  adminSurveyCreation: '/create-survey'
+  home: "/",
+  login: "/login",
+  register: "/register",
+  userAnswerSurvey: "/answer-survey",
+  adminViewSurvey: "/view-survey",
+  adminSurveyCreation: "/create-survey",
 };
 
 export default navigationPaths;
